@@ -14,7 +14,7 @@ jobs:
           command: sudo npm install -g apifox-cli
       - run:
           name: Running Test Scenario
-          command: apifox run http://192.168.10.208:5777/api/v1/projects/345197/api-test/ci-config/345120/detail?token=x7KXd9ghBM1JvdVUaG67ZY -r html,cli  -b
+          command: apifox run https://api.apifox.com/api/v1/projects/3946935/api-test/ci-config/409320/detail?token=xM4-WHtd0BHG5bjMdVusHV -r html,cli
 workflows:
   version: 2
   build:
