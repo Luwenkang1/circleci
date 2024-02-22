@@ -2,7 +2,7 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: ccimg/node:lts # 或者指定具体版本，例如：cimg/node:18-browsers
+      - image: cimg/node:lts # 或者指定具体版本，例如：cimg/node:18-browsers
 
 jobs:
   automated-api-tests:
