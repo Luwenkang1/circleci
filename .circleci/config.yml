@@ -1,22 +1,23 @@
 version: 2.1
-executors:
-  node-executor:
-    docker:
-      - image: cimg/node:lts # 或者指定具体版本，例如：cimg/node:18-browsers
 
 jobs:
   automated-api-tests:
-    executor: node-executor
+    docker:
+      - image: cimg/base:2021.04
     steps:
       - checkout
       - run:
-          name: Install Apifox CLI
-          command: sudo npm install -g apifox-cli
+          name: Install Postman CLI
+          command: |
+            curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
       - run:
-          name: Running Test Scenario
-          command: apifox run https://api.apifox.com/api/v1/projects/3946935/api-test/ci-config/409320/detail?token=xM4-WHtd0BHG5bjMdVusHV -r html,cli
+          name: Login using your API key
+          command: postman login --with-api-key $POSTMAN_API_KEY
+      - run: |
+            postman collection run "21939923-b33c2a57-d8a3-425b-a6c6-07b198bafb17" -e "21939923-08c6ad3a-d05d-4d67-84ed-f1a3594d4f2c"
+
 workflows:
   version: 2
-  build:
+  automated-api-tests:
     jobs:
       - automated-api-tests
