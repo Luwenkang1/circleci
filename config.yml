@@ -1,11 +1,11 @@
 version: 2.1
-
-orbs:
-  win: circleci/windows@4.1.1
-
+executors:
+  docker-executor:
+    docker:
+      - image: cimg/base:2021.04
 jobs:
   automated-api-tests:
-    executor: win/default
+    executor: docker-executor
     steps:
       - checkout
       - run:
@@ -13,7 +13,7 @@ jobs:
           command: npm install -g apifox-cli
       - run:
           name: Running Test Scenario
-          command: apifox run http://192.168.10.208:5777/api/v1/projects/345197/api-test/ci-config/345120/detail?token=x0y5zt2ATvSPAwT-DtqoSd -r html,cli  -b
+          command: apifox run http://192.168.10.208:5777/api/v1/projects/345197/api-test/ci-config/345120/detail?token=x7KXd9ghBM1JvdVUaG67ZY -r html,cli  -b
 workflows:
   version: 2
   build:
