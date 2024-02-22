@@ -9,10 +9,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Node.js and NPM
+          name: Install Dependencies and Node.js
           command: |
-            curl -sL https://deb.nodesource.com/setup_16.x | bash -
-            apt-get install -y nodejs
+            sudo apt-get update && \
+            curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && \
+            sudo apt-get install -y nodejs
       - run:
           name: Install Apifox CLI
           command: npm install -g apifox-cli
