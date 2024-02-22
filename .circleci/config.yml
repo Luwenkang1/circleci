@@ -1,22 +1,17 @@
 version: 2.1
 executors:
-  docker-executor:
+  node-executor:
     docker:
-      - image: cimg/base:2021.04
+      - image: ccimg/node:lts # 或者指定具体版本，例如：cimg/node:18-browsers
+
 jobs:
   automated-api-tests:
-    executor: docker-executor
+    executor: node-executor
     steps:
       - checkout
       - run:
-          name: Install Dependencies and Node.js
-          command: |
-            sudo apt-get update && \
-            curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && \
-            sudo apt-get install -y nodejs
-      - run:
           name: Install Apifox CLI
-          command: npm install -g apifox-cli
+          command: sudo npm install -g apifox-cli
       - run:
           name: Running Test Scenario
           command: apifox run http://192.168.10.208:5777/api/v1/projects/345197/api-test/ci-config/345120/detail?token=x7KXd9ghBM1JvdVUaG67ZY -r html,cli  -b
