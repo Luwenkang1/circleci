@@ -1,23 +1,31 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  automated-api-tests:
+  say-hello:
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      - image: cimg/base:2021.04
+      # Specify the version you desire here
+      # See: https://circleci.com/developer/images/image/cimg/base
+      - image: cimg/base:current
+
+    # Add steps to the job
+    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
+      # Checkout the code as the first step.
       - checkout
       - run:
-          name: Install Postman CLI
-          command: |
-            curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-      - run:
-          name: Login using your API key
-          command: postman login --with-api-key PMAK-65d6f49876ea490001d4d0bc-4faf76fe326710624e8a84b1e171c2d5c5
-      - run: |
-            postman collection run "21939923-b33c2a57-d8a3-425b-a6c6-07b198bafb17" -e "21939923-08c6ad3a-d05d-4d67-84ed-f1a3594d4f2c"
+          name: "Say hello"
+          command: "echo Hello, World!"
 
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  version: 2
-  automated-api-tests:
+  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - automated-api-tests
+      - say-hello
